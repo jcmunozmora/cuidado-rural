@@ -1,5 +1,5 @@
 # =======================
-# BASE + CUOTAS + MUESTREO 
+# CUOTAS + MUESTREO 
 # =======================
 rm(list = ls())
 
@@ -23,7 +23,7 @@ maps_out <- "C:/Users/user/OneDrive - Universidad EAFIT/VP - 2025_Intervencion_C
 
 
 # ------- Data -------
-load(file.path(outputs, "data_mediobajo_10.rda"))  # debe traer 'data_final3'
+load(file.path(outputs, "data_mediobajo_10.rda")) 
 set.seed(2025)
 
 # ----- Final Data ----
@@ -32,9 +32,9 @@ ex <- c("Amazonas", "Archipiélago de San Andrés", "La Guajira", "Nariño")
 data <- data_final3 %>%
   filter(!`departamento.x` %in% ex) %>%
   filter(!is.na(`departamento.x`) & `departamento.x` != "") %>%
-  distinct(no, .keep_all = TRUE)  # por si 'no' es el ID de proyecto
+  distinct(no, .keep_all = TRUE)  
 
-# ----- 1) Cuotas (proporcionales) -----
+# ----- 1) Cuotas -----
 N <- 25
 
 tab_avail <- data %>%
@@ -74,7 +74,7 @@ qualifies <- function(sampled_df, cuotas_tbl, N) {
   all(comparison$match) && nrow(sampled_df) == N
 }
 
-# ----- 3) Búsqueda aleatoria por semillas -----
+# ----- 3) Búsqueda aleatoria  -----
 max_iterations <- 10000
 best_sample <- NULL
 best_seed <- NA_integer_
@@ -94,7 +94,7 @@ for (seed in 1:max_iterations) {
   }
 }
 
-# ----- 4) Salida (+ respaldo estratificado si no se logra) -----
+# ----- 4) Salida  -----
 if (!is.null(best_sample)) {
   write_xlsx(
     list(sample = best_sample,
@@ -117,7 +117,7 @@ if (!is.null(best_sample)) {
   )
 }
 
-# ----- 5) Chequeo final de cumplimiento de cuotas -----
+# ----- 5) Chequeo final -----
 best_sample %>%
   count(`departamento.x`, name = "n_muestra") %>%
   left_join(select(cuotas, `departamento.x`, n_sample), by = "departamento.x") %>%

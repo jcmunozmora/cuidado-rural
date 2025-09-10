@@ -35,7 +35,7 @@ CV        <- 0.20                       # Coef. de variación (desigualdad de ta
 phi       <- 0.50                       # Proporción de clústeres en tratamiento (0.5 = balanceado)
 sigma_y   <- NA_real_                   # SD del outcome (si la pones, obtienes MDE en unidades)
 
-# ------------------ FUNCIONES -------------------
+
 # Efecto de diseño con tamaños desiguales (aprox. estándar)
 deff_clu <- function(mbar, icc, CV = 0) 1 + (mbar - 1) * icc * (1 + CV^2)
 
@@ -48,7 +48,7 @@ mde_cont_clu_cv <- function(k, mbar, icc, CV = 0, alpha = 0.05, power = 0.80, R2
   (z_a + z_b) * sqrt( alloc_factor * deff * (1 - R2) / (k * mbar) )
 }
 
-# Clústeres necesarios (k total) para un MDE objetivo en **SD**
+# Clústeres necesarios (k total) 
 k_needed <- function(MDE_target, m, icc, alpha = 0.05, power = 0.80, R2 = 0, CV = 0, phi = 0.5){
   z_a  <- qnorm(1 - alpha/2)
   z_b  <- qnorm(power)
@@ -58,7 +58,7 @@ k_needed <- function(MDE_target, m, icc, alpha = 0.05, power = 0.80, R2 = 0, CV 
   if (abs(phi - 0.5) < 1e-8) 2 * ceiling(k_raw/2) else ceiling(k_raw)  # par si balanceado
 }
 
-# ------------ TABLA DE ESCENARIOS ---------------
+# ------------TABLA DE ESCENARIOS ---------------
 tabla_mde <- expand_grid(k = k_grid, m = m_grid, icc = icc_grid) |>
   mutate(
     MDE_SD   = mde_cont_clu_cv(k, m, icc, CV = CV, alpha = alpha, power = power_tar, R2 = R2, phi = phi),
@@ -67,12 +67,11 @@ tabla_mde <- expand_grid(k = k_grid, m = m_grid, icc = icc_grid) |>
   ) |>
   arrange(MDE_SD)
 
-# ------------ EXPORTAR TABLA --------------------
 write_xlsx(tabla_mde, "size_continuous.xlsx")
 
-# ------------- GRÁFICO DE LÍNEA -----------------
-icc_star   <- 0.03  # elige el ICC a mostrar
-mde_target <- 0.20   # MDE objetivo en SD (línea de referencia)
+# ------------- GRÁFICO  -----------------
+icc_star   <- 0.03  
+mde_target <- 0.20   
 
 tabla_aux <- tabla_mde |>
   filter( m == 20, icc == icc_star)
@@ -90,5 +89,5 @@ p <- ggplot(tabla_aux, aes(x = n_total, y = MDE_SD)) +
 print(p)
 ggsave(file.path(maps_out, "MDEvsSamplingSize_continuous.png"),
        plot = p, width = 8, height = 6, dpi = 300)
-# ¿Cuántos clústeres totales (k) necesito para MDE = 0.30 SD, m = 20, ICC = 0.10?
+#EJEMPLO
 k_needed(MDE_target = 0.20, m = 20, icc = 0.10, R2 = R2, CV = CV, phi = phi)

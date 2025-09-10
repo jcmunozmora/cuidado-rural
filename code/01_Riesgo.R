@@ -87,7 +87,7 @@ base_depto_sf <- depto_sf %>%
   relocate(NAME_1, NAME_0, dpto, n_proyectos, total_personas, proy_Alto, proy_Medio, proy_Bajo)
 
 # ======================
-# MAPA: número proyectos
+# número proyectos
 # ======================
 
 base_depto_sf$n_proyectos <- as.numeric(base_depto_sf$n_proyectos)
