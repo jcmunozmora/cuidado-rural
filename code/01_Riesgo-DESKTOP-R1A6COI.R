@@ -79,7 +79,7 @@ riesgo_wide <- data_clean %>%
     names_prefix = "proy_"  # -> proy_Alto, proy_Medio, proy_Bajo
   )
 
-# ---- sf final por dpto 
+# ---- sf final por dpto (con geometría) ----
 base_depto_sf <- depto_sf %>%
   left_join(totales_dpto, by = "dpto") %>%
   left_join(riesgo_wide,  by = "dpto") %>%

@@ -55,8 +55,8 @@ The dataset comprises projects that were **rejected** by the Fondo Colombia Sost
 ### Localization 
 
 <p align="center">
-  <img src="img/departamento.png" alt="Departamento" width="300"/>
-  <img src="img/mapa_n_proyectos.png" alt="Etnia" width="300"/>
+  <img src="img/departamento.png" alt="Departamento" width="350"/>
+  <img src="img/mapa_n_proyectos.png" alt="Etnia" width="350"/>
 </p>
 
 
@@ -65,18 +65,18 @@ The dataset comprises projects that were **rejected** by the Fondo Colombia Sost
 On average, each project has 20 persons involved. Median is 7. The maximum number of persons in a project is 813, while the minimum is 5.
 
 <p align="center">
-  <img src="img/proyectos_por_tamaño.png" alt="Departamento" width="300"/>
-  <img src="img/mapa_n_personas.png" alt="Etnia" width="300"/>
+  <img src="img/proyectos_por_tamaño.png" alt="Departamento" width="350"/>
+  <img src="img/mapa_n_personas.png" alt="Etnia" width="350"/>
 </p>
 
 #### Characteristics of the participants
 
 
 <p align="center">
-    <img src="img/sexual.png" alt="Department distribution" width="300" />
-    <img src="img/sisben.png" alt="Department distribution" width="300" />
-    <img src="img/victimas.png" alt="Department distribution" width="300" />
-    <img src="img/etnia.png" alt="Department distribution" width="300" />
+    <img src="img/sexual.png" alt="Department distribution" width="350" />
+    <img src="img/sisben.png" alt="Department distribution" width="350" />
+    <img src="img/victimas.png" alt="Department distribution" width="350" />
+    <img src="img/etnia.png" alt="Department distribution" width="350" />
 </p>
 
 
@@ -112,9 +112,9 @@ This matrix provides a comprehensive assessment of risks linked to interventions
 - This dimension helps differentiate between temporary events and chronic risk factors.  
 
 <p align="center">
-<img src="img/mapa_n_riesgoalto.png" alt="Department distribution" width="300" />
-<img src="img/mapa_n_riesgobajo.png" alt="Department distribution" width="300" />
-<img src="img/mapa_n_riesgomedio.png" alt="Department distribution" width="300" />
+<img src="img/mapa_n_riesgoalto.png" alt="Department distribution" width="350" />
+<img src="img/mapa_n_riesgobajo.png" alt="Department distribution" width="350" />
+<img src="img/mapa_n_riesgomedio.png" alt="Department distribution" width="350" />
 </p>
 
 
@@ -127,7 +127,7 @@ From these, projects with fewer than 10 members were further excluded (n=91), re
 Within this final set, 25 projects were randomly assigned to the treatment group, while 25 matched projects served as the control group. To strengthen balance and account for potential attrition, 40 replacement projects were also identified.
 
 <p align="center">
-<img src="img/consort_escuelas.jpg" alt="Consort Diagram" width="400" />
+<img src="img/consort_escuelas1.jpg" alt="Consort Diagram" width="400" />
 </p>
 
 The spatial distribution of *Projects in regions with potential for valid control*, is the following.
@@ -201,7 +201,10 @@ The final samples is available in the output file [`data/derived/Escuelas_Cuidad
 
 ### 
 
-<img src="img/mapa_municipios_treatment_control.png" alt="Sampling strategy" width="400" />
+<p align="center">
+<img src="img/mapa_municipios_treatment_control.png" alt="Sampling strategy" width="600" />
+</p>
+
 
 ### Summary statistics by group (Treated vs Control)
 
