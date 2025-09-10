@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.33">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>sampling</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="Sampling_files/libs/clipboard/clipboard.min.js"></script>
+<script src="Sampling_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="Sampling_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="Sampling_files/libs/quarto-html/popper.min.js"></script>
+<script src="Sampling_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="Sampling_files/libs/quarto-html/anchor.min.js"></script>
+<link href="Sampling_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="Sampling_files/libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="Sampling_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="Sampling_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="Sampling_files/libs/bootstrap/bootstrap-81267100e462c21b3d6c0d5bf76a3417.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+
+
+
+<section id="cultivating-equality-rural-care-schools-to-transform-the-care-economy-in-rural-colombia" class="level1">
+<h1>Cultivating Equality: Rural Care Schools to Transform the Care Economy in Rural Colombia</h1>
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">1. Introduction</h2>
+<p>This section introduces the project, its objectives, and the relevance of the sampling process for the study.</p>
+</section>
+<section id="sample-size" class="level2">
+<h2 class="anchored" data-anchor-id="sample-size">2. Sample size</h2>
+<p>The sample size was determined using a cluster randomized controlled trial (RCT) design, accounting for covariates, unequal cluster sizes, and balanced treatment-control assignment. The following parameters were used:</p>
+<ul>
+<li><strong>Significance level:</strong> 0.05<br>
+</li>
+<li><strong>Statistical power:</strong> 0.80<br>
+</li>
+<li><strong>Intracluster correlation (ICC):</strong> 0.01–0.40<br>
+</li>
+<li><strong>Average interviews per cluster (municipality):</strong> 10, 15, 20, 25<br>
+</li>
+<li><strong>Variance reduction by covariates:</strong> 0.30<br>
+</li>
+<li><strong>Cluster size variation (CV):</strong> 0.20<br>
+</li>
+<li><strong>Treatment-control ratio:</strong> 0.5</li>
+</ul>
+<p>The required number of clusters (municipalities) and households per municipality was calculated using the following formula:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">k_needed</span>(MDE_target, m, icc, alpha, power, R2, CV, phi)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Where: - <code>MDE_target</code> is the minimum detectable effect (e.g., 0.20 SD) - <code>m</code> is the number of households per municipality (cluster) - <code>icc</code> is the intracluster correlation - <code>alpha</code> is the significance level - <code>power</code> is the statistical power - <code>R2</code> is the variance reduction by covariates - <code>CV</code> is the coefficient of variation for cluster size - <code>phi</code> is the proportion of clusters assigned to treatment</p>
+<p>For example, with a target MDE of 0.20, 20 households per municipality, and ICC of 0.10, the required number of clusters is:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">k_needed</span>(<span class="at">MDE_target =</span> <span class="fl">0.20</span>, <span class="at">m =</span> <span class="dv">20</span>, <span class="at">icc =</span> <span class="fl">0.10</span>, <span class="at">R2 =</span> <span class="fl">0.30</span>, <span class="at">CV =</span> <span class="fl">0.20</span>, <span class="at">phi =</span> <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The results are summarized in the file <a href="code/02_samplingsize.R"><code>code/02_samplingsize.R</code></a> and the output table <a href="data/derived/size_continuous.xlsx"><code>data/derived/size_continuous.xlsx</code></a>.</p>
+<p align="center">
+<img src="img/MDEvsSamplingSize_continuous.png" alt="Consort Diagram" width="400">
+</p>
+</section>
+<section id="population-of-study" class="level2">
+<h2 class="anchored" data-anchor-id="population-of-study">3. Population of Study</h2>
+<p>The dataset comprises projects that were <strong>rejected</strong> by the Fondo Colombia Sostenible and therefore did not participate in any intervention activities. In total, there are <strong>358 projects</strong> included in the analysis. For each project, the following information is available:</p>
+<p><a href="code/00_Descriptivas.R">Code to reproduce</a></p>
+<section id="localization" class="level3">
+<h3 class="anchored" data-anchor-id="localization">Localization</h3>
+<p align="center">
+<img src="img/departamento.png" alt="Departamento" width="300"> <img src="img/mapa_n_proyectos.png" alt="Etnia" width="300">
+</p>
+</section>
+<section id="number-of-persons-by-project" class="level3">
+<h3 class="anchored" data-anchor-id="number-of-persons-by-project">Number of persons by project</h3>
+<p>On average, each project has 20 persons involved. Median is 7. The maximum number of persons in a project is 813, while the minimum is 5.</p>
+<p align="center">
+<img src="img/proyectos_por_tamaño.png" alt="Departamento" width="300"> <img src="img/mapa_n_personas.png" alt="Etnia" width="300">
+</p>
+<section id="characteristics-of-the-participants" class="level4">
+<h4 class="anchored" data-anchor-id="characteristics-of-the-participants">Characteristics of the participants</h4>
+<p align="center">
+<img src="img/sexual.png" alt="Department distribution" width="300"> <img src="img/sisben.png" alt="Department distribution" width="300"> <img src="img/victimas.png" alt="Department distribution" width="300"> <img src="img/etnia.png" alt="Department distribution" width="300">
+</p>
+</section>
+</section>
+<section id="sector-organization-type" class="level3">
+<h3 class="anchored" data-anchor-id="sector-organization-type">Sector (Organization type)</h3>
+<p><img src="img/proyectos_por_sector.png" alt="Department distribution" width="400"></p>
+</section>
+</section>
+<section id="potential-risk-factors-for-fieldwork" class="level2">
+<h2 class="anchored" data-anchor-id="potential-risk-factors-for-fieldwork">4. Potential Risk Factors for fieldwork</h2>
+<p>This matrix provides a comprehensive assessment of risks linked to interventions across municipalities. It combines geographic, contextual, and documentary evidence, enabling informed decision-making. By integrating quantitative indicators (such as risk levels and probabilities) with qualitative insights (including observations and source references), the matrix strengthens the evaluation process and supports a thorough understanding of potential risks prior to fieldwork. The design and methodology of this matrix are based on the experience and approach developed by Universidad de los Andes for the evaluation of Fondo Colombia Sostenible.</p>
+<p><a href="data/inputs/Matriz_riesgos_FOMUR.xlsx">See risk matrix</a> <a href="code/01_Riesgo.R">Code to reproduce</a></p>
+<section id="geographic-scope" class="level3">
+<h3 class="anchored" data-anchor-id="geographic-scope">Geographic Scope</h3>
+<ul>
+<li><strong>Department</strong>: Identifies the department (regional administrative unit).<br>
+</li>
+<li><strong>Municipality</strong>: Specifies the local municipality.<br>
+</li>
+<li><strong>DANE Code</strong>: The official geographic code used by Colombia’s National Statistics Department (DANE).</li>
+</ul>
+</section>
+<section id="risk-characterization" class="level3">
+<h3 class="anchored" data-anchor-id="risk-characterization">Risk Characterization</h3>
+<ul>
+<li><strong>Type of Risk</strong>: Defines the nature of the risk (e.g., security-related, socio-political, economic).<br>
+</li>
+<li><strong>Risk Level</strong>: Classifies the intensity of the risk (e.g., Low, Medium, High).<br>
+</li>
+<li><strong>Risk Calculation</strong>: Combines likelihood and severity to describe the risk (e.g., <em>Moderate and probable</em>, <em>Important and probable</em>).</li>
+</ul>
+</section>
+<section id="evidence-and-triangulation" class="level3">
+<h3 class="anchored" data-anchor-id="evidence-and-triangulation">Evidence and Triangulation</h3>
+<ul>
+<li><strong>Observations</strong>: Qualitative descriptions that contextualize the identified risks, including incidents or patterns.<br>
+</li>
+<li><strong>Source of Consultation</strong>: References to external sources (e.g., news articles, institutional reports, governmental websites) used to validate the information.<br>
+</li>
+<li><strong>Triangulation Columns</strong>: Additional fields capturing complementary evidence from other sources or perspectives (e.g., local press, community testimonies, security reports).</li>
+</ul>
+</section>
+<section id="contextual-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="contextual-analysis">Contextual Analysis</h3>
+<ul>
+<li>Some cells include notes about structural or persistent conditions (e.g., presence of illegal armed groups, economic activities sustaining risks).<br>
+</li>
+<li>This dimension helps differentiate between temporary events and chronic risk factors.</li>
+</ul>
+<p align="center">
+<img src="img/mapa_n_riesgoalto.png" alt="Department distribution" width="300"> <img src="img/mapa_n_riesgobajo.png" alt="Department distribution" width="300"> <img src="img/mapa_n_riesgomedio.png" alt="Department distribution" width="300">
+</p>
+</section>
+</section>
+<section id="flow-of-project-selection-and-randomization-for-experimental-evaluation" class="level2">
+<h2 class="anchored" data-anchor-id="flow-of-project-selection-and-randomization-for-experimental-evaluation">5. Flow of Project Selection and Randomization for Experimental Evaluation</h2>
+<p>This CONSORT diagram summarizes the process of selecting projects for inclusion in the experimental evaluation. Out of an initial pool of 358 projects, only those with sufficient localization information (N=357) were retained. Projects located in municipalities with high political or socioeconomic risk were excluded (n=168), leaving 189 projects with feasible implementation (classified as low risk = 73 and medium risk = 116).</p>
+<p>From these, projects with fewer than 10 members were further excluded (n=91), resulting in 98 projects eligible by size. Additional restrictions applied to geographic representativeness: projects located in regions with very few comparable initiatives (Guajira = 1, Amazonas = 3, Nariño = 1, San Andrés = 3) were excluded (n=8). This left 90 projects situated in areas with the possibility of establishing a valid control group.</p>
+<p>Within this final set, 25 projects were randomly assigned to the treatment group, while 25 matched projects served as the control group. To strengthen balance and account for potential attrition, 40 replacement projects were also identified.</p>
+<p align="center">
+<img src="img/consort_escuelas.jpg" alt="Consort Diagram" width="400">
+</p>
+<p>The spatial distribution of <em>Projects in regions with potential for valid control</em>, is the following.</p>
+<p><img src="img/mapa_n_proyectos_final.png" alt="Department distribution" width="400"></p>
+</section>
+<section id="treatment-and-control-groups-assigment" class="level2">
+<h2 class="anchored" data-anchor-id="treatment-and-control-groups-assigment">6. Treatment and Control Groups Assigment</h2>
+<section id="randomization-procedure-to-treatment" class="level3">
+<h3 class="anchored" data-anchor-id="randomization-procedure-to-treatment">Randomization Procedure to Treatment</h3>
+<p>The random allocation of projects to treatment was performed using a quota-based stratified random sampling procedure, ensuring proportional representation by department.</p>
+<p><strong>Steps:</strong></p>
+<ol type="1">
+<li><strong>Quota Calculation:</strong>
+<ul>
+<li>The total number of projects to be assigned (N = 25) was distributed across departments according to the proportion of available projects in each department.</li>
+<li>Quotas were calculated by multiplying the department’s proportion by N, rounding down, and distributing any remaining slots to departments with the largest fractional remainder.</li>
+<li>This guarantees that the sample matches the departmental distribution as closely as possible.</li>
+</ul></li>
+<li><strong>Random Sampling:</strong>
+<ul>
+<li>A random sample of N projects was drawn from the eligible pool.</li>
+<li>The sample was validated to ensure it matched the calculated quotas for each department.</li>
+<li>If a valid sample was not found after 10,000 iterations, a backup stratified sample was generated by randomly selecting the required number of projects per department.</li>
+</ul></li>
+<li><strong>Output:</strong>
+<ul>
+<li>The final sample and quotas were saved to Excel files for documentation and reproducibility.</li>
+<li>The selected sample was also saved in R data format for further analysis.</li>
+</ul></li>
+</ol>
+<p><strong>Code Reference:</strong><br>
+See <a href="code/03_sample.R"><code>code/03_sample.R</code></a> and output files <a href="data/derived/sample_25_by_departamento_RANDOM.xlsx"><code>data/derived/sample_25_by_departamento_RANDOM.xlsx</code></a> and <a href="data/derived/selected_sample.xlsx"><code>data/derived/selected_sample.xlsx</code></a>.</p>
+</section>
+<section id="matching-procedure-to-assigment-control" class="level3">
+<h3 class="anchored" data-anchor-id="matching-procedure-to-assigment-control">Matching Procedure to Assigment Control</h3>
+<p>The selection of valid control projects was performed using a Propensity Score Matching (PSM) procedure at the project level. This approach ensures that control projects are statistically similar to treated projects based on key observable characteristics.</p>
+<p><strong>Variables used for Propensity Score Matching:</strong></p>
+<ul>
+<li>Sector of productive activity</li>
+<li>Total number of persons in the project</li>
+<li>Percentage of participants with gay orientation</li>
+<li>Percentage of indigenous participants</li>
+<li>Percentage of participants in SISBEN A</li>
+<li>Percentage of participants in SISBEN B</li>
+</ul>
+<p>These variables were selected to capture relevant demographic, socioeconomic, and sectoral differences between projects, improving the comparability between treated and control groups.</p>
+<p><strong>Steps:</strong></p>
+<ol type="1">
+<li><strong>Data Preparation:</strong>
+<ul>
+<li>Projects were classified as treated or control based on random assignment.</li>
+<li>Relevant variables for matching included sector, total persons, percentage of gay orientation, percentage of indigenous participants, and SISBEN categories, among others.</li>
+<li>Missing values were imputed with zeros or default categories to ensure completeness.</li>
+</ul></li>
+<li><strong>Propensity Score Estimation:</strong>
+<ul>
+<li>A logistic regression model was fitted to estimate the probability of being assigned to treatment, using the selected covariates.</li>
+</ul></li>
+<li><strong>Matching:</strong>
+<ul>
+<li>Nearest neighbor matching (1:1, without replacement, caliper 0.2) was performed using the estimated propensity scores.</li>
+<li>This procedure pairs each treated project with a control project that has a similar propensity score, improving balance between groups.</li>
+</ul></li>
+<li><strong>Output:</strong>
+<ul>
+<li>The matched dataset, including treated and control projects and their pairs, was exported to Excel for documentation and further analysis.</li>
+</ul></li>
+</ol>
+<p><strong>Code Reference:</strong><br>
+See <a href="code/04_match.R"><code>code/04_match.R</code></a> and output file <a href="data/derived/matched_projects_Data3.xlsx"><code>data/derived/matched_projects_Data3.xlsx</code></a>.</p>
+</section>
+</section>
+<section id="final-sample-summary" class="level2">
+<h2 class="anchored" data-anchor-id="final-sample-summary">Final Sample Summary</h2>
+<p>The final samples is available in the output file <a href="data/derived/Escuelas_Cuidado_2025-09-10.xlsx"><code>data/derived/Escuelas_Cuidado_2025-09-10.xlsx</code></a>.</p>
+<hr>
+<p><em>Prepared by: Laura Quintero and Juan Carlos Muñoz-Mora</em><br>
+<em>Date: 2025 - Sept</em></p>
+<section id="summary-statistics-by-group-treated-vs-control" class="level3">
+<h3 class="anchored" data-anchor-id="summary-statistics-by-group-treated-vs-control">Summary statistics by group (Treated vs Control)</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 9%">
+<col style="width: 11%">
+<col style="width: 10%">
+<col style="width: 9%">
+<col style="width: 11%">
+<col style="width: 10%">
+<col style="width: 11%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Label</th>
+<th style="text-align: right;">Treated_n</th>
+<th style="text-align: right;">Treated_mean</th>
+<th style="text-align: right;">Treated_sd</th>
+<th style="text-align: right;">Control_n</th>
+<th style="text-align: right;">Control_mean</th>
+<th style="text-align: right;">Control_sd</th>
+<th style="text-align: center;">Significance</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">% Women in Organization</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">99.07</td>
+<td style="text-align: right;">3.33</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">95.07</td>
+<td style="text-align: right;">20.12</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">% Transgender Women</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">0.10</td>
+<td style="text-align: right;">0.50</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">% Other Gender</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">0.74</td>
+<td style="text-align: right;">2.22</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Total Persons</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">35.80</td>
+<td style="text-align: right;">42.31</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">23.64</td>
+<td style="text-align: right;">11.43</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">% Heterosexual Orientation</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">94.40</td>
+<td style="text-align: right;">20.36</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">99.07</td>
+<td style="text-align: right;">3.54</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">% Gay Orientation</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">0.39</td>
+<td style="text-align: right;">1.40</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">0.27</td>
+<td style="text-align: right;">1.33</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">% Bisexual Orientation</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">% Other Sexual Orientation</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">% No Info Sexual Orientation</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">4.34</td>
+<td style="text-align: right;">8.53</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">1.85</td>
+<td style="text-align: right;">5.56</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">% Aged 18-28</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">26.69</td>
+<td style="text-align: right;">28.20</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">20.44</td>
+<td style="text-align: right;">25.51</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">% Aged 60+</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">20.01</td>
+<td style="text-align: right;">17.88</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">13.68</td>
+<td style="text-align: right;">13.91</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">% Indigenous</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">23.81</td>
+<td style="text-align: right;">37.05</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">21.50</td>
+<td style="text-align: right;">40.27</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">% Rrom</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">% Raizales</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">% Palenqueras</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">% Black/Afrocolombian</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">15.17</td>
+<td style="text-align: right;">31.42</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">12.14</td>
+<td style="text-align: right;">33.12</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">% No Ethnic Recognition</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">61.02</td>
+<td style="text-align: right;">41.34</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">66.35</td>
+<td style="text-align: right;">46.65</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">% Total Ethnic Size</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">100.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">100.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">% SISBEN A</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">66.29</td>
+<td style="text-align: right;">21.70</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">66.63</td>
+<td style="text-align: right;">28.36</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">% SISBEN B</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">23.57</td>
+<td style="text-align: right;">16.66</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">23.97</td>
+<td style="text-align: right;">20.82</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">% SISBEN C</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">4.24</td>
+<td style="text-align: right;">7.89</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">8.01</td>
+<td style="text-align: right;">11.15</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">% SISBEN D</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">0.15</td>
+<td style="text-align: right;">0.74</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">0.27</td>
+<td style="text-align: right;">1.33</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">% Reincorporated</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">0.72</td>
+<td style="text-align: right;">3.50</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">% Leaders</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">2.53</td>
+<td style="text-align: right;">5.48</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">14.01</td>
+<td style="text-align: right;">32.75</td>
+<td style="text-align: center;">*</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">% Victims</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">33.30</td>
+<td style="text-align: right;">38.02</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">27.60</td>
+<td style="text-align: right;">38.38</td>
+<td style="text-align: center;"></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Notes:</strong><br>
+- <em>Rrom</em>: Refers to the Romani ethnic group in Colombia.<br>
+- <em>Raizales</em>: Refers to the Afro-Caribbean ethnic group native to the San Andrés and Providencia islands.<br>
+- <em>Palenqueras</em>: Refers to women from San Basilio de Palenque, a historic Afro-Colombian community.<br>
+- <em>Afrocolombian</em>: Refers to people of African descent in Colombia.<br>
+- <em>SISBEN</em>: The Colombian government’s system for identifying and classifying households for social program eligibility (Socioeconomic Identification System).</p>
+</section>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

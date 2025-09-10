@@ -4,23 +4,28 @@
 rm(list = ls())
 
 # ---- Packages ----
-library(readxl)
-library(janitor)
-library(dplyr)
-library(tidyr)
-library(forcats)
-library(stringr)
-library(ggplot2)
-library(scales)
-library(sf)
-library(writexl)
+if (!require("pacman")) install.packages("pacman")
+pacman::p_load(
+  readxl,
+  janitor,
+  dplyr,
+  tidyr,
+  forcats,
+  stringr,
+  ggplot2,
+  scales,
+  sf,
+  writexl
+)
+
+# ---- Include maps ----
+source("code/aux_maps.R")
 
 # ---- Paths ----
-inputs   <- "C:/Users/user/OneDrive - Universidad EAFIT/VP - 2025_Intervencion_Cuidado_IDB/cuidado-rural/data/inputs"
-outputs  <- "C:/Users/user/OneDrive - Universidad EAFIT/VP - 2025_Intervencion_Cuidado_IDB/cuidado-rural/data/derived"
-maps     <- "C:/Users/user/OneDrive - Universidad EAFIT/VP - 2025_Intervencion_Cuidado_IDB/cuidado-rural/data/inputs/Colombia_Division"
-maps_out <- "C:/Users/user/OneDrive - Universidad EAFIT/VP - 2025_Intervencion_Cuidado_IDB/cuidado-rural/img"
-
+inputs   <- "data/inputs"
+outputs  <- "data/derived"
+maps     <- "data/inputs/Colombia_Division"
+maps_out <- "img"
 
 # ------- Data -------
 load(file.path(outputs, "data_mediobajo_10.rda")) 
@@ -33,6 +38,44 @@ data <- data_final3 %>%
   filter(!`departamento.x` %in% ex) %>%
   filter(!is.na(`departamento.x`) & `departamento.x` != "") %>%
   distinct(no, .keep_all = TRUE)  
+
+data_agg <- data %>% 
+            group_by(dpto) %>%
+            summarise(total_personas = sum(total_personas, na.rm=TRUE),
+                      n_proyectos = n_distinct(no),
+                      .groups = "drop")
+
+# ---- sf final por dpto (con geometría) ----
+# (base_depto_sf = viene de code/aux_maps.R)
+base_depto_sf <- depto_sf %>%
+  left_join(data_agg, by = "dpto") %>%
+  arrange(desc(n_proyectos)) %>%
+  relocate(NAME_1, NAME_0, dpto, n_proyectos, total_personas)
+
+base_depto_sf$n_proyectos <- as.numeric(base_depto_sf$n_proyectos)
+
+lab_pts <- base_depto_sf %>%
+  st_transform(3116) %>%              
+  st_point_on_surface() %>%
+  st_transform(4326) %>%
+  mutate(lbl = ifelse(is.na(n_proyectos), "0",
+                      formatC(n_proyectos, format = "d", big.mark = ",")))
+# Mapa 1
+
+p_nproj <- ggplot(base_depto_sf) +
+  geom_sf(aes(fill = n_proyectos), color = "white", size = 0.2) +
+  scale_fill_viridis_c(option = "C", end = 0.95,
+                       na.value = "grey80", labels = comma,
+                       name = "Proyectos (n)") +
+  geom_sf_text(data = lab_pts, aes(label = lbl), size = 3) +
+  theme_void(base_size = 12) +
+  labs(title = "Número de proyectos por departamento")
+
+p_nproj
+
+ggsave(file.path(maps_out, "mapa_n_proyectos_final.png"),
+       plot = p_nproj, width = 10, height = 8, dpi = 600, bg = "transparent")
+
 
 # ----- 1) Cuotas -----
 N <- 25

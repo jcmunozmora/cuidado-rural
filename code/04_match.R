@@ -10,10 +10,10 @@ library(writexl)
 # -------------
 set.seed(123)
 # ---- Paths ----
-inputs   <- "C:/Users/user/OneDrive - Universidad EAFIT/VP - 2025_Intervencion_Cuidado_IDB/cuidado-rural/data/inputs"
-outputs  <- "C:/Users/user/OneDrive - Universidad EAFIT/VP - 2025_Intervencion_Cuidado_IDB/cuidado-rural/data/derived"
-maps     <- "C:/Users/user/OneDrive - Universidad EAFIT/VP - 2025_Intervencion_Cuidado_IDB/cuidado-rural/data/inputs/Colombia_Division"
-maps_out <- "C:/Users/user/OneDrive - Universidad EAFIT/VP - 2025_Intervencion_Cuidado_IDB/cuidado-rural/img"
+inputs   <- "data/inputs"
+outputs  <- "data/derived"
+maps     <- "data/inputs/Colombia_Division"
+maps_out <- "img"
 # ------- Data -------
 load(file.path(outputs, "data_mediobajo_10.rda"))  
 load(file.path(outputs,"selected_sample.rda"))
